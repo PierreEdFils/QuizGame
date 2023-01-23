@@ -49,6 +49,19 @@ public class Quiz implements ActionListener {
     JTextField number_right = new JTextField();
     JTextField percentage = new JTextField();
 
+    Timer timer =new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            seconds--;
+            seconds_left.setText(String.valueOf(seconds));
+
+            if (seconds<= 0){
+                displayAnswer();
+            }
+
+        }
+    });
+
     public Quiz() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(650,650);
@@ -186,6 +199,7 @@ public class Quiz implements ActionListener {
                 answer_labelB.setText(options[index][1]);
                 answer_labelC.setText(options[index][2]);
                 answer_labelD.setText(options[index][3]);
+                timer.start();
             }
     }
 
@@ -228,7 +242,7 @@ public class Quiz implements ActionListener {
     }
 
     public void displayAnswer(){
-
+        timer.stop();
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
